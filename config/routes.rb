@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   post 'events/:event_id/users/:user_id' => 'events#add_user'
   delete 'events/:event_id/users/:user_id' => 'events#remove_user'
   
-  resources :users
-  resources :events
+  resources :users, :defaults => { :format => 'json' }
+  resources :events, :defaults => { :format => 'json' }
 
 
   # The priority is based upon order of creation: first created -> highest priority.
