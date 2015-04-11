@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150314174805) do
+ActiveRecord::Schema.define(version: 20150411160042) do
 
   create_table "events", force: :cascade do |t|
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "category"
+    t.string   "sub_category"
+    t.text     "note"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -26,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150314174805) do
     t.integer  "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "attending"
   end
 
   add_index "relationships", ["event_id"], name: "index_relationships_on_event_id"
@@ -36,10 +40,11 @@ ActiveRecord::Schema.define(version: 20150314174805) do
     t.string   "username"
     t.string   "email"
     t.boolean  "admin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "password_digest"
   end
 
 end
