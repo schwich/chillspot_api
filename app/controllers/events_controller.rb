@@ -7,7 +7,8 @@ class EventsController < ApplicationController
       coords.push(params[:latitude])
       coords.push(params[:longitude])
       @nearby_events = Event.near(coords, 10)
-      render json: @nearby_events 
+
+      #render json: @nearby_events 
     else
       @events = Event.all
       render json: @events
