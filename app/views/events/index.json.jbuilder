@@ -1,6 +1,7 @@
 json.array! @nearby_events do |event|
 
   json.id event.id
+  json.address event.address
   json.latitude event.latitude
   json.longitude event.longitude
   json.created_at event.created_at
