@@ -2,4 +2,9 @@ json.id @event.id
 json.address @event.address
 json.latitude @event.latitude
 json.longitude @event.longitude
-json.event_started @event.created_at
+json.created_at @event.created_at
+json.category @event.category
+json.sub_category @event.sub_category
+json.note @event.note
+json.distance @event_distance
+json.people_attending @event.users.count

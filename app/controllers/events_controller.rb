@@ -16,14 +16,26 @@ class EventsController < ApplicationController
   end
 
   def show
-   @event = Event.find(params[:id])
+    if not params[:latitude].nil? and not params[:longitude].nil?
+      coords = []
+      coords.push(params[:latitude])
+      coords.push(params[:longitude])
+      @event = Event.find(params[:id])
+      if @event.geocoded?
+        @event_distance = @event.distance_from(coords)
+      end
+    else
+      @event = Event.find(params[:id])
+    end
   end
 
   def create
     @event = Event.new(event_params)
 
     if @event.save
-      render json: { status: 201 } 
+      # Also add user to event?
+
+      render json: { status: 201, event_id: @event.id } 
     else
       render json: { errors: @event.errors }, status: 422 
     end
@@ -68,6 +80,6 @@ class EventsController < ApplicationController
 
   private
     def event_params
-      params.require(:event).permit(:latitude, :longitude, :address)
+      params.require(:event).permit(:latitude, :longitude, :address, :category, :sub_category, :note)
     end
 end
