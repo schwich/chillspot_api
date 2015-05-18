@@ -8,7 +8,7 @@ class EventsController < ApplicationController
       coords.push(params[:longitude])
       @nearby_events = Event.near(coords, 10)
 
-      #render json: @nearby_events 
+      #render json: @nearby_events
     else
       @events = Event.all
       render json: @events
@@ -35,9 +35,9 @@ class EventsController < ApplicationController
     if @event.save
       # Also add user to event?
 
-      render json: { status: 201, event_id: @event.id } 
+      render json: { status: 201, event_id: @event.id }
     else
-      render json: { errors: @event.errors }, status: 422 
+      render json: { errors: @event.errors }, status: 422
     end
   end
 
@@ -62,7 +62,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @users = @event.users
     render json: @users
-  end 
+  end
 
   def add_user
     @user = User.find(params[:user_id])
@@ -74,8 +74,23 @@ class EventsController < ApplicationController
   def remove_user
     @user = User.find(params[:user_id])
     @event = Event.find(params[:event_id])
-    @user.relationship.destroy 
+    @user.relationship.destroy
     render json: { status: 204 }
+  end
+
+  def create_event_and_add_user
+    @event = Event.new(event_params)
+
+    @user = User.find(params[:user_id])
+
+    if @event.save
+      # Also add user to event
+      @user.create_relationship(user_id: @user.id, event_id: @event.id)
+
+      render json: { status: 205, event_id: @event.id }
+    else
+      render json: { errors: @event.errors }, status: 422
+    end
   end
 
   private

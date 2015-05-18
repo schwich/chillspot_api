@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
-  get 'users/:id/event' => 'users#get_event' 
+  get 'users/:id/event' => 'users#get_event'
   get 'events/:id/users' => 'events#get_users'
   post 'events/:event_id/users/:user_id' => 'events#add_user'
   delete 'events/:event_id/users/:user_id' => 'events#remove_user'
-  
+
+  post 'users/:user_id/events/' => 'events#create_event_and_add_user'
+
   resources :users, :defaults => { :format => 'json' }
   resources :events, :defaults => { :format => 'json' }
 
