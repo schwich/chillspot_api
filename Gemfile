@@ -43,6 +43,8 @@ group :development, :test do
   gem 'spring'
 
   gem 'sqlite3'
+
+  gem 'railroady'
 end
 
 group :production do
